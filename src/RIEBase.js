@@ -77,7 +77,6 @@ export default class RIEBase extends React.Component {
             this.setState({loading: true, newValue: value});
             this.props.change(newProp);
         }
-        this.props.change(newProp);
     };
 
     makeClassString = () => {
