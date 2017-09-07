@@ -18209,11 +18209,11 @@
 	        }
 
 	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = RIEToggle.__proto__ || Object.getPrototypeOf(RIEToggle)).call.apply(_ref, [this].concat(args))), _this), _this.elementClick = function (e) {
-	            if (_this.props.isDisabled) return;
+	            if (_this.props.disabled) return;
 	            _this.setState({ value: !_this.props.value });
 	            _this.commit(!_this.props.value);
 	        }, _this.render = function () {
-	            var valueToRender = _this.state.loading ? _this.state.value : _this.props.value;
+	            var valueToRender = _this.props.value;
 	            return _react2.default.createElement(
 	                'span',
 	                _extends({
@@ -19371,7 +19371,7 @@
 	        _this.componentWillReceiveProps = function (nextProps) {
 	            debug('componentWillReceiveProps(' + nextProps + ')');
 	            if ('value' in nextProps && !(nextProps.shouldRemainWhileInvalid && _this.state.invalid)) {
-	                _this.setState({ loading: false, editing: false, invalid: false, newValue: null });
+	                _this.setState({ editing: false, invalid: false, newValue: null });
 	            }
 	        };
 
@@ -19380,7 +19380,7 @@
 	            if (!_this.state.invalid) {
 	                var newProp = {};
 	                newProp[_this.props.propName] = value;
-	                _this.setState({ loading: true, newValue: value });
+	                _this.setState({ newValue: value });
 	                _this.props.change(newProp);
 	            }
 	        };
@@ -19390,8 +19390,7 @@
 	            var classNames = [];
 	            if (_this.props.className) classNames.push(_this.props.className);
 	            if (_this.state.editing && _this.props.classEditing) classNames.push(_this.props.classEditing);
-	            if (_this.state.loading && _this.props.classLoading) classNames.push(_this.props.classLoading);
-	            if (_this.state.disabled && _this.props.classDisabled) classNames.push(_this.props.classDisabled);
+	            if (_this.props.disabled && _this.props.classDisabled) classNames.push(_this.props.classDisabled);
 	            if (_this.state.invalid && _this.props.classInvalid) classNames.push(_this.props.classInvalid);
 	            return classNames.join(' ');
 	        };
@@ -19411,8 +19410,6 @@
 
 	        _this.state = {
 	            editing: false,
-	            loading: false,
-	            disabled: false,
 	            invalid: false
 	        };
 	        return _this;
@@ -19427,12 +19424,10 @@
 	    propName: _propTypes2.default.string.isRequired,
 	    editProps: _propTypes2.default.object,
 	    defaultProps: _propTypes2.default.object,
-	    isDisabled: _propTypes2.default.bool,
+	    disabled: _propTypes2.default.bool,
 	    validate: _propTypes2.default.func,
 	    handleValidationFail: _propTypes2.default.func,
-	    shouldBlockWhileLoading: _propTypes2.default.bool,
 	    shouldRemainWhileInvalid: _propTypes2.default.bool,
-	    classLoading: _propTypes2.default.string,
 	    classEditing: _propTypes2.default.string,
 	    classDisabled: _propTypes2.default.string,
 	    classInvalid: _propTypes2.default.string,
@@ -20047,7 +20042,7 @@
 	        _this.startEditing = function () {
 	            debug('startEditing');
 	            _this.props.beforeStart ? _this.props.beforeStart() : null;
-	            if (_this.props.isDisabled) return;
+	            if (_this.props.disabled) return;
 	            _this.setState({ editing: true });
 	            _this.props.afterStart ? _this.props.afterStart() : null;
 	        };
@@ -20107,7 +20102,7 @@
 	        _this.renderEditingComponent = function () {
 	            debug('renderEditingComponent()');
 	            return _react2.default.createElement('input', _extends({
-	                disabled: _this.state.loading,
+	                disabled: _this.props.disabled,
 	                className: _this.makeClassString(),
 	                defaultValue: _this.props.value,
 	                onInput: _this.textChanged,
@@ -20213,7 +20208,7 @@
 	            return _react2.default.createElement('textarea', _extends({
 	                rows: _this.props.rows,
 	                cols: _this.props.cols,
-	                disabled: _this.state.loading,
+	                disabled: _this.props.disabled,
 	                className: _this.makeClassString(),
 	                defaultValue: _this.props.value,
 	                onInput: _this.textChanged,
@@ -20337,7 +20332,7 @@
 
 	        _this.renderEditingComponent = function () {
 	            debug('renderEditingComponent()');
-	            return _react2.default.createElement('input', _extends({ disabled: _this.props.shouldBlockWhileLoading && _this.state.loading,
+	            return _react2.default.createElement('input', _extends({ disabled: _this.props.disabled,
 	                type: 'number',
 	                className: _this.makeClassString(),
 	                defaultValue: _this.props.value,
@@ -20355,7 +20350,11 @@
 	}(_RIEStatefulBase3.default);
 
 	RIENumber.propTypes = {
-	    format: _propTypes2.default.func
+	    format: _propTypes2.default.func,
+	    disabled: _propTypes2.default.bool
+	};
+	RIENumber.defaultProps = {
+	    disabled: false
 	};
 	exports.default = RIENumber;
 
@@ -20460,7 +20459,7 @@
 	        };
 
 	        _this2.componentWillReceiveProps = function (nextProps) {
-	            if ('value' in nextProps) _this2.setState({ loading: false, invalid: false });
+	            if ('value' in nextProps) _this2.setState({ invalid: false });
 	        };
 
 	        _this2.keyDown = function (event) {
@@ -20621,7 +20620,7 @@
 
 	            return _react2.default.createElement(
 	                'select',
-	                _extends({ disabled: _this.props.shouldBlockWhileLoading && _this.state.loading,
+	                _extends({ disabled: _this.props.disabled,
 	                    value: _this.props.value.id,
 	                    className: _this.makeClassString(),
 	                    onChange: _this.finishEditing,
@@ -20649,7 +20648,11 @@
 	}(_RIEStatefulBase3.default);
 
 	RIESelect.propTypes = {
-	    options: _propTypes2.default.array.isRequired
+	    options: _propTypes2.default.array.isRequired,
+	    disabled: _propTypes2.default.bool
+	};
+	RIESelect.defaultProps = {
+	    disabled: false
 	};
 	exports.default = RIESelect;
 
