@@ -19378,12 +19378,11 @@
 	        _this.commit = function (value) {
 	            debug('commit(' + value + ')');
 	            if (!_this.state.invalid) {
-	                var _newProp = {};
-	                _newProp[_this.props.propName] = value;
+	                var newProp = {};
+	                newProp[_this.props.propName] = value;
 	                _this.setState({ loading: true, newValue: value });
-	                _this.props.change(_newProp);
+	                _this.props.change(newProp);
 	            }
-	            _this.props.change(newProp);
 	        };
 
 	        _this.makeClassString = function () {
