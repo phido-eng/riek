@@ -5,7 +5,12 @@ import RIEStatefulBase from './RIEStatefulBase';
 
 export default class RIESelect extends RIEStatefulBase {
     static propTypes = {
-        options: PropTypes.array.isRequired
+        options: PropTypes.array.isRequired,
+        disabled: PropTypes.bool,
+    };
+
+    static defaultProps = {
+      disabled: false,
     };
 
     finishEditing = () => {
@@ -25,7 +30,7 @@ export default class RIESelect extends RIEStatefulBase {
             return <option value={option.id} key={option.id}>{option.text}</option>
         });
 
-        return <select disabled={(this.props.shouldBlockWhileLoading && this.state.loading)}
+        return <select disabled={(this.props.disabled)}
                        value={this.props.value.id}
                        className={this.makeClassString()}
                        onChange={this.finishEditing}

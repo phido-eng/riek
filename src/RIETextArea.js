@@ -11,7 +11,7 @@ export default class RIETextArea extends RIEStatefulBase {
         return <textarea
             rows={this.props.rows}
             cols={this.props.cols}
-            disabled={this.state.loading}
+            disabled={this.props.disabled}
             className={this.makeClassString()}
             defaultValue={this.props.value}
             onInput={this.textChanged}

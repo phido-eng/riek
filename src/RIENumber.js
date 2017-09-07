@@ -11,7 +11,12 @@ export default class RIENumber extends RIEStatefulBase {
     }
 
     static propTypes = {
-        format: PropTypes.func
+        format: PropTypes.func,
+      disabled: PropTypes.bool,
+    };
+
+    static defaultProps = {
+        disabled: false,
     };
 
     validate = (value) => {
@@ -50,7 +55,7 @@ export default class RIENumber extends RIEStatefulBase {
 
     renderEditingComponent = () => {
         debug(`renderEditingComponent()`)
-        return <input disabled={(this.props.shouldBlockWhileLoading && this.state.loading)}
+        return <input disabled={(this.props.disabled)}
                       type="number"
                       className={this.makeClassString()}
                       defaultValue={this.props.value}

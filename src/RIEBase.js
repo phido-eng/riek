@@ -13,8 +13,6 @@ export default class RIEBase extends React.Component {
 
         this.state = {
             editing: false,
-            loading: false,
-            disabled: false,
             invalid: false
         };
     }
@@ -25,12 +23,10 @@ export default class RIEBase extends React.Component {
         propName: PropTypes.string.isRequired,
         editProps: PropTypes.object,
         defaultProps: PropTypes.object,
-        isDisabled: PropTypes.bool,
+        disabled: PropTypes.bool,
         validate: PropTypes.func,
         handleValidationFail: PropTypes.func,
-        shouldBlockWhileLoading: PropTypes.bool,
         shouldRemainWhileInvalid: PropTypes.bool,
-        classLoading: PropTypes.string,
         classEditing: PropTypes.string,
         classDisabled: PropTypes.string,
         classInvalid: PropTypes.string,
@@ -65,7 +61,7 @@ export default class RIEBase extends React.Component {
     componentWillReceiveProps = (nextProps) => {
         debug(`componentWillReceiveProps(${nextProps})`)
         if ('value' in nextProps && !(nextProps.shouldRemainWhileInvalid && this.state.invalid)) {
-            this.setState({loading: false, editing: false, invalid: false, newValue: null});
+            this.setState({editing: false, invalid: false, newValue: null});
         }
     };
 
@@ -74,7 +70,7 @@ export default class RIEBase extends React.Component {
         if(!this.state.invalid) {
             let newProp = {};
             newProp[this.props.propName] = value;
-            this.setState({loading: true, newValue: value});
+            this.setState({newValue: value});
             this.props.change(newProp);
         }
     };
@@ -84,8 +80,7 @@ export default class RIEBase extends React.Component {
         var classNames = [];
         if (this.props.className) classNames.push(this.props.className);
         if (this.state.editing && this.props.classEditing) classNames.push(this.props.classEditing);
-        if (this.state.loading && this.props.classLoading) classNames.push(this.props.classLoading);
-        if (this.state.disabled && this.props.classDisabled) classNames.push(this.props.classDisabled);
+        if (this.props.disabled && this.props.classDisabled) classNames.push(this.props.classDisabled);
         if (this.state.invalid && this.props.classInvalid) classNames.push(this.props.classInvalid);
         return classNames.join(' ');
     };

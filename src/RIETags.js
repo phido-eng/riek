@@ -59,7 +59,7 @@ export default class RIETags extends RIEStatefulBase {
     };
 
     componentWillReceiveProps = (nextProps) => {
-        if ('value' in nextProps) this.setState({loading: false, invalid: false});
+        if ('value' in nextProps) this.setState({invalid: false});
     };
 
     keyDown = (event) => {

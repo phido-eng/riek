@@ -12,7 +12,7 @@ export default class RIEStatefulBase extends RIEBase {
     startEditing = () => {
         debug('startEditing')
         this.props.beforeStart ? this.props.beforeStart() : null;
-        if(this.props.isDisabled) return;
+        if(this.props.disabled) return;
         this.setState({editing: true});
         this.props.afterStart ? this.props.afterStart() : null;
     };
@@ -66,7 +66,7 @@ export default class RIEStatefulBase extends RIEBase {
     renderEditingComponent = () => {
         debug('renderEditingComponent()')
         return <input
-            disabled={this.state.loading}
+            disabled={this.props.disabled}
             className={this.makeClassString()}
             defaultValue={this.props.value}
             onInput={this.textChanged}

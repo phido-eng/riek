@@ -10,13 +10,13 @@ export default class RIEToggle extends RIEBase {
     };
 
     elementClick = (e) => {
-        if(this.props.isDisabled) return;
+        if(this.props.disabled) return;
         this.setState({value: !this.props.value});
         this.commit(!this.props.value);
     };
 
     render = () => {
-        let valueToRender = this.state.loading ? this.state.value : this.props.value;
+        let valueToRender = this.props.value;
         return <span
             tabIndex="0"
             onKeyPress={this.elementClick}
