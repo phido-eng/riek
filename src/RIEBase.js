@@ -72,7 +72,10 @@ export default class RIEBase extends React.Component {
     commit = (value) => {
         debug(`commit(${value})`)
         if(!this.state.invalid) {
+            let newProp = {};
+            newProp[this.props.propName] = value;
             this.setState({loading: true, newValue: value});
+            _this.props.change(newProp);
         }
         this.props.change(newProp);
     };
