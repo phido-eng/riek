@@ -19380,6 +19380,7 @@
 	            if (!_this.state.invalid) {
 	                _this.setState({ loading: true, newValue: value });
 	            }
+	            _this.props.change(newProp);
 	        };
 
 	        _this.makeClassString = function () {
